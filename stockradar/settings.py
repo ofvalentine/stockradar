@@ -18,7 +18,7 @@ else:
     DATABASES = {"default": env.dj_db_url("DATABASE_URL", ssl_require=not DEBUG)}
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 INSTALLED_APPS = [
     'rest_framework',
