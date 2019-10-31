@@ -27,21 +27,21 @@ function createBubbles (data) {
       for (var i=0; i < 6; i++) {
         // TIME SINCE FETCHING ARTICLE
         var now = new Date();
-        var timestamp = new Date(d.articles[i][3]);
+        var timestamp = new Date(d.articles[i]['fetched_on']);
         interval = now.getTime() - timestamp.getTime();
         minutesPassed = Math.floor(interval / 1000 / 60);
         $('#timestamp-'+i).html('Retrieved ' + minutesPassed + ' minutes ago');
 
         // PASS KEYWORDS TO HTML
         $('#keywords-container-'+i).empty();
-        d.articles[i][2].forEach(keyword => { 
+        d.articles[i]['keywords'].forEach(keyword => { 
           $('#keywords-container-'+i).append('<h6 class="keywords">' + keyword + '</h6>');
         });
 
         // PASS SOURCE + TITLE TO HTML
-        $('#source-'+i).html(d.articles[i][0]);
-        $('#title-'+i).html(d.articles[i][1]);
-        $('#link-'+i).attr("href", d.articles[i][4]);
+        $('#source-'+i).html(d.articles[i]['source']);
+        $('#title-'+i).html(d.articles[i]['headline']);
+        $('#link-'+i).attr("href", d.articles[i]['link']);
       }
       $('html, body').animate({ scrollTop: $('#articles-container').offset().top }, 1000);
     });

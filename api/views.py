@@ -64,7 +64,7 @@ class TopicsView(APIView):
     def get(self, request):
         timeframe = timezone.now() - timedelta(hours=3)
         relevant_keywords = get_keywords_by_frequency(timeframe)
-        raw_topics = [topic for topic, frequency in relevant_keywords if frequency > 10]
+        raw_topics = [topic for topic, frequency in relevant_keywords if frequency > 40]
 
         minimum_frequency = 6
         topics = {}
