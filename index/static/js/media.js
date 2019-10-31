@@ -1,6 +1,3 @@
-
-// var apiDate = "" + now.getUTCFullYear() + (now.getUTCMonth()+1) + now.getUTCDate() + "/" + (now.getUTCHours()+1);
-
 var width = window.innerWidth;
 var height = window.innerHeight;
 var xForce, yForce, xStrength, yStrength;

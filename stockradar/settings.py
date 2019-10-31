@@ -17,10 +17,10 @@ else:
     SECRET_KEY = env.str("SECRET_KEY")
     DATABASES = {"default": env.dj_db_url("DATABASE_URL", ssl_require=not DEBUG)}
 
-
-ALLOWED_HOSTS = ['stockradar.herokuapp.com']
+ALLOWED_HOSTS = ['stockradar.herokuapp.com', '*']
 
 INSTALLED_APPS = [
+    'corsheaders',
     'rest_framework',
     'api',
     'index',
@@ -33,14 +33,19 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ['http://localhost:8000', ]
+CORS_ORIGIN_REGEX_WHITELIST = ['http://localhost:8000', ]
 
 ROOT_URLCONF = 'stockradar.urls'
 

@@ -66,7 +66,7 @@ class TopicsView(APIView):
         relevant_keywords = get_keywords_by_frequency(timeframe)
         raw_topics = [topic for topic, frequency in relevant_keywords if frequency > 10]
 
-        minimum_frequency = 1
+        minimum_frequency = 6
         topics = {}
         for topic in raw_topics:
             relevant_topic_keywords = get_keywords_by_topic(timeframe, topic)
