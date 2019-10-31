@@ -26,7 +26,8 @@ function createBubbles (data) {
 
       for (var i=0; i < 6; i++) {
         // TIME SINCE FETCHING ARTICLE
-        timestamp = new Date(d.articles[i][3]);
+        var now = new Date();
+        var timestamp = new Date(d.articles[i][3]);
         interval = now.getTime() - timestamp.getTime();
         minutesPassed = Math.floor(interval / 1000 / 60);
         $('#timestamp-'+i).html('Retrieved ' + minutesPassed + ' minutes ago');

@@ -1,4 +1,4 @@
-var now = new Date();
+
 // var apiDate = "" + now.getUTCFullYear() + (now.getUTCMonth()+1) + now.getUTCDate() + "/" + (now.getUTCHours()+1);
 
 var width = window.innerWidth;
