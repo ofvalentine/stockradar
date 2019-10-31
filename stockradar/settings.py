@@ -9,7 +9,7 @@ is_production = os.environ.get('IS_HEROKU', None)
 if is_production:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     DEBUG = False
-    DATABASES = {"default": os.environ.get("DATABASE_URL", ssl_require=not DEBUG)}
+    DATABASES = {"default": os.environ.get("DATABASE_URL")}
 else:
     env = environs.Env()
     env.read_env()
