@@ -1,4 +1,4 @@
-var topicsPromise = d3.json('http://127.0.0.1:5000/api/topics/' + apiDate).then(function (data) {
+var topicsPromise = d3.json('https://stockradar.herokuapp.com/api/topics/').then(function (data) {
 
   // GET DATA FROM API
   var topicKeywords = [];

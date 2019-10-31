@@ -1,4 +1,4 @@
-var keywordsPromist = d3.json('http://127.0.0.1:5000/api/keywords/' + apiDate).then(function (data) {
+var keywordsPromist = d3.json('https://stockradar.herokuapp.com/api/keywords/').then(function (data) {
 
   // SORT DATA FROM API INTO ARRAY OF DICT
   var mostCommon = [];
