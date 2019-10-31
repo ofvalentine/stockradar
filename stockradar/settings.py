@@ -3,7 +3,7 @@ import django_heroku
 
 import environs
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 is_production = os.environ.get('IS_HEROKU', None)
 
 if is_production:
@@ -18,7 +18,7 @@ else:
     DATABASES = {"default": env.dj_db_url("DATABASE_URL", ssl_require=not DEBUG)}
 
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['stockradar.herokuapp.com']
 
 INSTALLED_APPS = [
     'rest_framework',
@@ -79,6 +79,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'index/static/')]
 
 django_heroku.settings(locals())
