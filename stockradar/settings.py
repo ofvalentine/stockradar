@@ -20,9 +20,7 @@ else:
 ALLOWED_HOSTS = ['stockradar.herokuapp.com', '*']
 
 INSTALLED_APPS = [
-    'corsheaders',
     'rest_framework',
-    'api',
     'index',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,7 +31,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -41,11 +38,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ['http://localhost:8000', ]
-CORS_ORIGIN_REGEX_WHITELIST = ['http://localhost:8000', ]
 
 ROOT_URLCONF = 'stockradar.urls'
 

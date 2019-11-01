@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Headline, Keyword, Topic
 
-# Register your models here.
+admin.site.register(Headline)
+admin.site.register(Keyword)
+admin.site.register(Topic)

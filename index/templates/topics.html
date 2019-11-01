@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block topics %}
+
+<div id="topics-container">
+  <h2 id="topics-text">Tell me more about &nbsp;</h2>
+  <button id="topics-button" onclick="showTopics()"><span id="changing-text">choose topic</span> &nbsp;&nbsp;<i
+      class="fas fa-caret-down"></i></button>
+  <div id="topics-list"></div>
+  <a id="restore-default" href="javascript:">Default</a>
+</div>
+
+{% endblock %}

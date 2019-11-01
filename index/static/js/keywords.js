@@ -1,4 +1,4 @@
-var keywordsPromist = d3.json('https://stockradar.herokuapp.com/api/keywords/').then(function (data) {
+var keywordsPromise = d3.json('https://stockradar.herokuapp.com/api/keywords/').then(function (data) {
 
   // SORT DATA FROM API INTO ARRAY OF DICT
   var mostCommon = [];
