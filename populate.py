@@ -16,18 +16,15 @@ is_production = os.environ.get('IS_HEROKU', None)
 
 if is_production:
     connection = psycopg2.connect(user=os.environ.get('USER'), password=os.environ.get('PASSWORD'),
-                                  host=os.environ.get('HOST'), port="5432",
-                                  database=os.environ.get('DATABASE'))
+                                  host=os.environ.get('HOST'), port="5432", database=os.environ.get('DATABASE'))
 else:
     env = environs.Env()
     env.read_env()
     connection = psycopg2.connect(user=env.str('USER'), password=env.str('PASSWORD'),
-                                  host=env.str('HOST'), port="5432",
-                                  database=env.str('DATABASE'))
+                                  host=env.str('HOST'), port="5432", database=env.str('DATABASE'))
 
 cursor = connection.cursor()
-query = "INSERT INTO headlines (SOURCE, HEADLINE, KEYWORDS, FETCHED_ON, LINK) VALUES (%s,%s,%s,%s,%s);"
-fetched_on = datetime.utcnow()
+query = "INSERT INTO headlines (SOURCE, HEADLINE, KEYWORDS, LINK) VALUES (%s,%s,%s,%s);"
 
 # SET UP IGNORE WORDS
 ignore_words = set(stopwords.words('english'))
@@ -53,7 +50,7 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), "https://www.reuters.com" + title['href']) for title in
                        soup.find_all("a", href=re.compile("article"))[1:]]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("Reuters", clean(headline.strip()), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("Reuters", clean(headline.strip()), get_keywords(headline), link))
 
 # WSJ MARKETS
 html = requests.get('https://www.wsj.com/news/markets')
@@ -61,7 +58,7 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), title['href']) for title in
                        soup.find_all("a", class_="wsj-headline-link", href=re.compile("articles"))]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("WSJ", clean(headline.strip()), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("WSJ", clean(headline.strip()), get_keywords(headline), link))
 
 # YAHOO FINANCE
 html = requests.get('https://finance.yahoo.com/topic/stock-market-news')
@@ -69,7 +66,7 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), "https://finance.yahoo.com" + title['href']) for title in
                        soup.find_all("a", href=re.compile("news"))]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("Yahoo", clean(headline.strip()), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("Yahoo", clean(headline.strip()), get_keywords(headline), link))
 
 # CNBC FINANCE
 html = requests.get('https://www.cnbc.com/finance/')
@@ -77,7 +74,7 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), title['href']) for title in
                        soup.find_all("a", class_="Card-title")]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("CNBC", clean(headline.strip()), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("CNBC", clean(headline.strip()), get_keywords(headline), link))
 
 # MARKETWATCH
 html = requests.get('https://www.marketwatch.com/')
@@ -85,7 +82,7 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), title['href']) for title in
                        soup.find_all("a", class_="link", href=re.compile("story"))]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("MarketWatch", clean(headline).strip(), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("MarketWatch", clean(headline).strip(), get_keywords(headline), link))
 
 # INDIA TIMES ET
 html = requests.get('https://economictimes.indiatimes.com/markets')
@@ -94,7 +91,7 @@ headlines_and_links = [(title.get_text(), "https://economictimes.indiatimes.com"
                        soup.find_all("a", href=re.compile("^\\/+(markets)+\\/+\\w+\\/+(news)"))]
 for headline, link in headlines_and_links:
     if headline:
-        cursor.execute(query, ("India Times ET", clean(headline).strip(), get_keywords(headline), fetched_on, link))
+        cursor.execute(query, ("India Times ET", clean(headline).strip(), get_keywords(headline), link))
 
 # FINANCIAL TIMES
 html = requests.get('https://www.ft.com/markets')
@@ -102,7 +99,7 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), "https://www.ft.com" + title['href']) for title in
                        soup.find_all("a", attrs={'data-trackable': "heading-link"})]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("FT", clean(headline).strip(), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("FT", clean(headline).strip(), get_keywords(headline), link))
 
 # FINANCIAL NEWS LONDON
 html = requests.get('https://www.fnlondon.com/')
@@ -110,7 +107,7 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), title['href']) for title in
                        soup.find_all("a", class_=re.compile("FinancialNewsTheme--headline-link--"))]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("FN London", clean(headline).strip(), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("FN London", clean(headline).strip(), get_keywords(headline), link))
 
 # INVESTING.COM
 request = Request('https://www.investing.com/news/', headers={"User-Agent": "Mozilla/5.0"})
@@ -119,7 +116,7 @@ soup = BeautifulSoup(html, "html.parser")
 headlines_and_links = [(title.get_text(), "https://www.investing.com" + title['href']) for title in
                        soup.find_all("a", class_="title")]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("Investing.com", clean(headline).strip(), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("Investing.com", clean(headline).strip(), get_keywords(headline), link))
 
 # CNN BUSINESS
 html = requests.get('https://edition.cnn.com/business')
@@ -127,10 +124,10 @@ soup = BeautifulSoup(html.text, "html.parser")
 headlines_and_links = [(title.get_text(), "https://edition.cnn.com/business" + title.parent['href']) for title in
                        soup.find_all("span", class_="cd__headline-text")]
 for headline, link in headlines_and_links:
-    cursor.execute(query, ("CNN Business", clean(headline).strip(), get_keywords(headline), fetched_on, link))
+    cursor.execute(query, ("CNN Business", clean(headline).strip(), get_keywords(headline), link))
 
 # REMOVE DUPLICATES AND OLDER ENTRIES
-older_date = fetched_on - timedelta(days=2)
+older_date = datetime.utcnow() - timedelta(days=2)
 cursor.execute("DELETE FROM headlines WHERE fetched_on < %s;", (older_date,))
 cursor.execute("DELETE FROM headlines original USING headlines copy WHERE original.ctid < copy.ctid "
                "AND original.headline = copy.headline;")
@@ -148,24 +145,11 @@ ignore_words = ['fargo', 'opinion', 'big', 'could', 'biggest', 'month', 'making'
                 'say', 'may', 'keep', 'jump', 'new', 'one', 'people', 'time', 'since', 'million', 'year', 'back']
 
 relevant_keywords = [word for headline in raw_keywords for word in headline if word not in ignore_words]
-keywords_to_show = 15
-keywords_by_frequency = collections.Counter(relevant_keywords).most_common(keywords_to_show)
-
-
-# GET ARTICLES ARRAY FOR EACH KEYWORD
-def article_by_keyword(keyword):
-    cursor.execute(
-        "SELECT * FROM headlines WHERE %s=ANY(keywords) AND fetched_on >= %s ORDER BY fetched_on DESC LIMIT 6;",
-        (keyword, timeframe))
-    return cursor.fetchall()
+keywords_by_frequency = collections.Counter(relevant_keywords).most_common(15)
 
 
 # LINEAR CONVERSION TO BUBBLE RADIUS
-max_bubble_size = 160
-min_bubble_size = 45
-
-
-def linear_conversion(value, max, min):
+def linear_conversion(value, max, min, max_bubble_size=160, min_bubble_size=45):
     return ((value - min) * (max_bubble_size - min_bubble_size) / (max - min)) + min_bubble_size
 
 
@@ -201,3 +185,6 @@ for topic, frequency in keywords_by_frequency[:3]:
         cursor.execute("INSERT INTO topics (TOPIC, KEYWORD, FREQUENCY) VALUES (%s,%s,%s);",
                        (topic, keyword, linear_conversion(keyword_frequency, max, min)))
 connection.commit()
+
+cursor.close()
+connection.close()

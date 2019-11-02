@@ -12,12 +12,9 @@ class Headline(models.Model):
     class Meta:
         db_table = 'headlines'
 
-    def __str__(self):
-        return self.headline
-
 
 class Keyword(models.Model):
-    keyword = models.CharField(max_length=25)
+    keyword = models.CharField(max_length=25, primary_key=True)
     frequency = models.FloatField()
 
     class Meta:
@@ -31,6 +28,7 @@ class Topic(models.Model):
     topic = models.CharField(max_length=25)
     keyword = models.CharField(max_length=25)
     frequency = models.FloatField()
+    id = models.IntegerField(primary_key=True)
 
     class Meta:
         db_table = 'topics'

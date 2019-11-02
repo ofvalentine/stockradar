@@ -18,3 +18,4 @@ class TopicSerializer(serializers.Serializer):
     topic = serializers.CharField(max_length=25)
     keyword = serializers.CharField(max_length=25)
     frequency = serializers.FloatField()
+    id = serializers.IntegerField()

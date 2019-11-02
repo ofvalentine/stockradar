@@ -31,6 +31,8 @@ body {
   width: 100%;
   height: 120%;
   position: absolute;
+  top: 0;
+  left: 0;
 }
 @media (min-width: 361px) and (max-width: 768px) {
   #bubbles-container {
@@ -457,7 +459,7 @@ body {
   text-decoration: none;
   margin: 1rem;
   color: #aa469c;
-  z-index: 2;
+  /* z-index: 2; */
   position: absolute;
   top: 0;
   right: 0;

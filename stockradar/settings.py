@@ -20,6 +20,7 @@ else:
 ALLOWED_HOSTS = ['stockradar.herokuapp.com', '*']
 
 INSTALLED_APPS = [
+    'json_tag',
     'rest_framework',
     'index',
     'django.contrib.admin',

@@ -1,8 +1,156 @@
 {% extends 'index.html' %}
 {% block bubbles %}
+{% load json_tag %}
 
-<script type="text/javascript"> 
-  var a = "{{someDjangoVariable}}";
+<script type="text/javascript">
+  var keywords = {{ keywords | json }};
+  var topics = {{ topics | json }};
+
+  var width = window.innerWidth;
+  var height = window.innerHeight;
+  var xForce, yForce, xStrength, yStrength;
+
+  if (width < 321) {
+    xForce = width * 0.5;
+    xStrength = 0.5;
+    yForce = height * 2;
+    yStrength = 0.1;
+  } else if (width < 768) {
+    xForce = width * 0.5;
+    xStrength = 0.5;
+    yForce = height * 1.2;
+    yStrength = 0.1;
+  } else if (width < 1025) {
+    xForce = width * 0.5;
+    xStrength = 0.1;
+    yForce = height * 0.7;
+    yStrength = 0.1;
+  } else if (width < 1367) {
+    xForce = width * 0.65;
+    xStrength = 0.1;
+    yForce = height * 0.5;
+    yStrength = 0.1;
+  } else {
+    xForce = width * 0.65;
+    xStrength = 0.1;
+    yForce = height * 0.5;
+    yStrength = 0.3; 
+  }
+
+  var compoundWords = {
+    "wells": "fargo",
+    "wall": "street",
+    "hong": "kong",
+    "jp": "morgan"
+  };
+
+  keywords.forEach(function(keyword_dict) {
+    if (keyword_dict['keyword'] in compoundWords) { keyword_dict['keyword'] += " " + compoundWords[keyword_dict['keyword']]; }
+    if (width < 768) { keyword_dict['frequency'] *=0.7; }
+  });
+  
+  $(document).ready(function() { createBubbles(keywords); });
+
+  $('#restore-default').click(function() {
+    createBubbles(keywords);
+    $('#changing-text').html("choose topic");
+    $('#restore-default').hide();
+    $('.topic').hide(300);
+    $('#articles-container').hide();
+    $('#articles-notice-text').show();
+    $('html, body').animate({ scrollTop: 0 }, 1000);
+  });
+
+  var i = 0;
+  topics.forEach(function(topic_dict) {
+    $('#topics-list').append('<a class="topic" href="javascript:void(0);" id="' + i + '">' + topic_dict['topic'] + '</a>');
+    topic_dict['data'].forEach(function(keyword_dict) {
+      if (keyword_dict['keyword'] in compoundWords) { keyword_dict['keyword'] += " " + compoundWords[keyword_dict['keyword']]; }
+      if (width < 768) { keyword_dict['frequency'] *=0.7; }
+    });
+    i++;
+  });
+
+  $('.topic').hide();
+  $(document).on("click", ".topic", function() {
+    $('.topic').hide(300);
+    $('#changing-text').html($(this).text());
+    $('#restore-default').show();
+    createBubbles(topics[$(this).attr('id')]['data']);
+    $('html, body').animate({ scrollTop: 0 }, 1000);
+  });
+  function showTopics() { $('.topic').toggle(300); }
+  $('#bubbles-container').click(function () { $('.topic').hide(300); });
+
+  function createBubbles (data) {
+    $("#bubbles-container").empty();
+    var bubble = d3.select("#bubbles-container")
+      .selectAll("circle")
+      .data(data)
+      .enter()
+      .append("g")
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+    bubble.append("circle")
+      .attr("class", "bubble")
+      .attr("r", function (d) { return d.frequency; })
+      .on("click", function (d) {
+        $('#articles-notice-text').hide();
+        $('#articles-container').css("display", "flex");
+        for (var i=0; i < 6; i++) {
+          minutesPassed = Math.floor((Math.random() * 15) + 2);
+          $('#timestamp-'+i).html('Retrieved ' + minutesPassed + ' minutes ago');
+          $('#keywords-container-'+i).empty();
+          d.articles[i]['keywords'].forEach(keyword => { 
+            $('#keywords-container-'+i).append('<h6 class="keywords">' + keyword + '</h6>');
+          });
+          $('#source-'+i).html(d.articles[i]['source']);
+          $('#title-'+i).html(d.articles[i]['headline']);
+          $('#link-'+i).attr("href", d.articles[i]['link']);
+        }
+        $('html, body').animate({ scrollTop: $('#articles-container').offset().top }, 1000);
+      });
+
+    bubble
+      .append("text")
+      .text(function (d) { return d.keyword; })
+      .attr("class", "name")
+      .attr("font-size", function (d) { return d.frequency / 6; });
+
+    var simulation = d3.forceSimulation()
+      .force("x", d3.forceX().strength(xStrength).x(xForce))
+      .force("y", d3.forceY().strength(yStrength).y(yForce))
+      .force("center", d3.forceCenter().x(xForce).y(yForce))
+      .force("charge", d3.forceManyBody().strength(0.5))
+      .force("collide", d3.forceCollide().strength(.4).radius(function (d) { return d.frequency + 5; }).iterations(0.5));
+
+    function dragstarted(d) {
+      if (!d3.event.active) simulation.alphaTarget(0.03).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+    function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    }
+    function dragended(d) {
+      if (!d3.event.active) simulation.alphaTarget(0.03);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    simulation.nodes(data).on("tick", function (d) {
+      bubble.attr("cx", function (d) { return d.x; })
+        .attr("cy", function (d) { return d.y; });
+    });
+    simulation.on("tick", function (e) {
+      bubble.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
+    });
+  }
+  
 </script>
 
 {% endblock %}
