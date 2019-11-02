@@ -166,13 +166,6 @@ def get_keywords_by_topic(topic):
     cursor.execute("SELECT keywords FROM headlines WHERE %s=ANY(keywords) AND fetched_on >= %s;", (topic, timeframe))
     return [keywords_array[0] for keywords_array in cursor.fetchall()]
 
-
-def articles_by_topic(topic, keyword):
-    cursor.execute("SELECT * FROM headlines WHERE %s=ANY(keywords) AND %s=ANY(keywords) AND fetched_on >= %s "
-                   "ORDER BY fetched_on DESC LIMIT 6;", (topic, keyword, timeframe))
-    return cursor.fetchall()
-
-
 # SET UP TOPICS WITH FREQUENCY AND ARTICLES FOR EACH TOPIC KEYWORD
 for topic, frequency in keywords_by_frequency[:3]:
     raw_topic_keywords = get_keywords_by_topic(topic)
