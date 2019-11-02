@@ -534,7 +534,7 @@ body {
 }
 
 .waveTop {
-  background-image: url("../img/wave-top.png");
+  background-image: url("../img/wave-top.05d52988a72c.png");
   background-size: 50% 10rem;
 }
 @media (max-width: 768px) {
@@ -551,7 +551,7 @@ body {
 }
 
 .waveMiddle {
-  background-image: url("../img/wave-mid.png");
+  background-image: url("../img/wave-mid.ba75e0c9c558.png");
   background-size: 50% 12rem;
 }
 @media (max-width: 768px) {
@@ -570,7 +570,7 @@ body {
 }
 
 .waveBottom {
-  background-image: url("../img/wave-bottom.png");
+  background-image: url("../img/wave-bottom.6cd18bc0983f.png");
   background-size: 50% 10rem;
 }
 @media (max-width: 768px) {
