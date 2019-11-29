@@ -28,7 +28,6 @@ query = "INSERT INTO headlines (SOURCE, HEADLINE, KEYWORDS, LINK) VALUES (%s,%s,
 
 # SET UP IGNORE WORDS
 ignore_words = set(stopwords.words('english'))
-plural_words = ['jobs', 'stocks', 'markets', '']
 
 
 # EXTRACT KEYWORDS FROM HEADLINE
