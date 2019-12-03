@@ -140,8 +140,7 @@ cursor.execute('SELECT keywords FROM headlines WHERE fetched_on >= %s ;', (timef
 raw_keywords = [keywords_array[0] for keywords_array in cursor.fetchall()]
 
 ignore_words = ['fargo', 'opinion', 'big', 'could', 'biggest', 'month', 'making', 'street', 'moves', 'good', 'kong',
-                'morgan',
-                'say', 'may', 'keep', 'jump', 'new', 'one', 'people', 'time', 'since', 'million', 'year', 'back']
+                'morgan', 'say', 'may', 'keep', 'jump', 'new', 'one', 'people', 'time', 'since', 'million', 'year', 'back']
 
 relevant_keywords = [word for headline in raw_keywords for word in headline if word not in ignore_words]
 keywords_by_frequency = collections.Counter(relevant_keywords).most_common(15)

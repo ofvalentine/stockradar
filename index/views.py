@@ -6,7 +6,7 @@ from datetime import timedelta
 
 def index(request):
     keywords = list(Keyword.objects.all().values())
-    timeframe = timezone.now() - timedelta(hours=3)
+    timeframe = timezone.now() - timedelta(hours=6)
     for keyword_dict in keywords:
         keyword_dict['articles'] = list(Headline.objects.filter(fetched_on__gte=timeframe, keywords__contains=[
             keyword_dict['keyword']]).values('source', 'headline', 'keywords', 'link').order_by('fetched_on')[:6])
