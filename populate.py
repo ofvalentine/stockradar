@@ -135,7 +135,7 @@ cursor.execute("DELETE FROM topics;")
 connection.commit()
 
 # FETCH DATA
-timeframe = datetime.utcnow() - timedelta(hours=3)
+timeframe = datetime.utcnow() - timedelta(hours=5)
 cursor.execute('SELECT keywords FROM headlines WHERE fetched_on >= %s ;', (timeframe,))
 raw_keywords = [keywords_array[0] for keywords_array in cursor.fetchall()]
 
