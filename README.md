@@ -1,6 +1,6 @@
 # StockRadar
 
-[StockRadar](www.stockradar.info) is a **financial news headlines analyser**. It retrieves financial news articles in real-time and decets the most talked about topics and key words in current financial news.
+[StockRadar](https://stockradar.herokuapp.com/) is a **financial news headlines analyser**. It retrieves financial news articles in real-time and decets the most talked about topics and key words in current financial news.
 
 
 
