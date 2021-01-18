@@ -24,7 +24,7 @@ PySocks==1.7.1
 pytz==2020.5
 regex==2020.11.13
 requests==2.25.1
-setuptools==51.1.2.post20210112
+setuptools==51.1.2
 six==1.15.0
 soupsieve==2.1
 sqlparse==0.4.1
