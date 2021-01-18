@@ -1,51 +1,35 @@
-# This file may be used to create an environment using:
-# $ conda create --name <env> --file <this file>
-# platform: win-64
-asgiref=3.2.10=pypi_0
-autopep8=1.5.4=py_0
-beautifulsoup4=4.9.3=pyhb0f4dca_0
-brotlipy=0.7.0=py38h2bbff1b_1003
-ca-certificates=2020.12.8=haa95532_0
-certifi=2020.12.5=py38haa95532_0
-cffi=1.14.4=py38hcd4344a_0
-chardet=4.0.0=py38haa95532_1003
-click=7.1.2=py_0
-cryptography=3.3.1=py38hcd4344a_0
-dj-database-url=0.5.0=py_0
-django=3.1.5=pyhd3eb1b0_0
-django-heroku=0.3.1=pyh8c360ce_0
-django-json-tag=0.0.1=pypi_0
-djangorestframework=3.12.2=pyhd8ed1ab_0
-idna=2.10=py_0
-joblib=1.0.0=pyhd3eb1b0_0
-krb5=1.17.1=hc04afaa_0
-libpq=12.2=h3235a2c_0
-nltk=3.5=py_0
-openssl=1.1.1i=h2bbff1b_0
-pip=20.3.3=py38haa95532_0
-psycopg2=2.8.5=py38hcd4344a_1
-pycodestyle=2.6.0=py_0
-pycparser=2.20=py_2
-pyopenssl=20.0.1=pyhd3eb1b0_1
-pysocks=1.7.1=py38haa95532_0
-python=3.8.5=h5fd99cc_1
-pytz=2020.5=pyhd3eb1b0_0
-regex=2020.11.13=py38h2bbff1b_0
-requests=2.25.1=pyhd3eb1b0_0
-setuptools=51.1.2=py38haa95532_4
-six=1.15.0=py38haa95532_0
-soupsieve=2.1=pyhd3eb1b0_0
-sqlite=3.33.0=h2a8f88b_0
-sqlparse=0.4.1=py_0
-textblob=0.15.3=py_0
-tk=8.6.10=he774522_0
-toml=0.10.1=py_0
-tqdm=4.55.1=pyhd3eb1b0_0
-urllib3=1.26.2=pyhd3eb1b0_0
-vc=14.2=h21ff451_1
-vs2015_runtime=14.27.29016=h5e58377_2
-wheel=0.36.2=pyhd3eb1b0_0
-whitenoise=5.2.0=py_0
-win_inet_pton=1.1.0=py38haa95532_0
-wincertstore=0.2=py38_0
-zlib=1.2.11=h62dcd97_4
+asgiref @ file:///tmp/build/80754af9/asgiref_1605055780383/work
+autopep8 @ file:///tmp/build/80754af9/autopep8_1596578164842/work
+beautifulsoup4 @ file:///tmp/build/80754af9/beautifulsoup4_1601924105527/work
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///C:/ci/cffi_1606255208697/work
+chardet @ file:///C:/ci/chardet_1607690654534/work
+click==7.1.2
+cryptography @ file:///C:/ci/cryptography_1607637849569/work
+dj-database-url==0.5.0
+Django @ file:///tmp/build/80754af9/django_1609784082548/work
+django-heroku==0.3.1
+django-json-tag==0.0.1
+djangorestframework @ file:///home/conda/feedstock_root/build_artifacts/djangorestframework_1609945773755/work
+idna @ file:///tmp/build/80754af9/idna_1593446292537/work
+joblib @ file:///tmp/build/80754af9/joblib_1607970656719/work
+nltk @ file:///tmp/build/80754af9/nltk_1592496090529/work
+psycopg2 @ file:///C:/ci/psycopg2_1608147681824/work
+pycodestyle==2.6.0
+pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
+pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1608057966937/work
+PySocks @ file:///C:/ci/pysocks_1605287845585/work
+pytz @ file:///tmp/build/80754af9/pytz_1608922264688/work
+regex @ file:///C:/ci/regex_1606691183008/work
+requests @ file:///tmp/build/80754af9/requests_1608241421344/work
+six @ file:///C:/ci/six_1605187374963/work
+soupsieve @ file:///tmp/build/80754af9/soupsieve_1607965878077/work
+sqlparse @ file:///tmp/build/80754af9/sqlparse_1602184451250/work
+textblob==0.15.3
+toml @ file:///tmp/build/80754af9/toml_1592853716807/work
+tqdm @ file:///tmp/build/80754af9/tqdm_1609788246169/work
+urllib3 @ file:///tmp/build/80754af9/urllib3_1606938623459/work
+whitenoise @ file:///home/conda/feedstock_root/build_artifacts/whitenoise_1602596638218/work
+win-inet-pton @ file:///C:/ci/win_inet_pton_1605306167264/work
+wincertstore==0.2
