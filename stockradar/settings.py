@@ -1,27 +1,16 @@
+from pathlib import Path
 import os
 import django_heroku
-import environs
+import dj_database_url
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-is_production = os.environ.get('IS_HEROKU', None)
-
-if is_production:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    DEBUG = False
-    DATABASES = {"default": os.environ.get("DATABASE_URL")}
-else:
-    env = environs.Env()
-    env.read_env()
-    DEBUG = TEMPLATE_DEBUG = env.bool("DEBUG", default=False)
-    SECRET_KEY = env.str("SECRET_KEY")
-    DATABASES = {"default": env.dj_db_url("DATABASE_URL", ssl_require=not DEBUG)}
-
-ALLOWED_HOSTS = ['stockradar.herokuapp.com', '*']
+BASE_DIR = Path(__file__).resolve().parent.parent
+SECRET_KEY = os.environ.get('SECRET_KEY')
+ALLOWED_HOSTS = ['*']
+DEBUG = True
 
 INSTALLED_APPS = [
+    'core',
     'json_tag',
-    'rest_framework',
-    'index',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,12 +20,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'stockradar.urls'
@@ -58,26 +48,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'stockradar.wsgi.application'
+DATABASES = {'default': dj_database_url.config(conn_max_age=None, ssl_require=True)}
 
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'index/static/')]
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 django_heroku.settings(locals())

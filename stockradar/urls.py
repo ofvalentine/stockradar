@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.urls import path, include
-
+from django.urls import path
+from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('index.urls')),
+    path('', views.index, name='index')
 ]

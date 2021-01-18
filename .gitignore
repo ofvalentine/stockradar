@@ -1,2 +1,5 @@
 .env
 __pycache__/
+.idea/
+.vscode/
+styles.css.map
