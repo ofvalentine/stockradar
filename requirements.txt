@@ -31,7 +31,7 @@ sqlparse==0.4.1
 textblob==0.15.3
 toml==0.10.1
 tqdm==4.55.1
-urllib3==1.26.2
+urllib3==1.26.4
 wheel==0.36.2
 whitenoise==5.2.0
 win-inet-pton==1.1.0
